@@ -1,0 +1,132 @@
+main {
+    background-color: #c0c0c0;
+    padding: 50px;
+}
+
+h2 {
+    color: #000;
+    font-family: Anton;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    margin: 10px 0;
+}
+
+h3 {
+    color: var(--Grey, #7A7A7A);
+font-family: Manrope;
+font-size: 12px;
+font-style: normal;
+font-weight: 700;
+line-height: normal;
+letter-spacing: 1.08px;
+text-transform: uppercase;
+margin: 20px 0;
+}
+
+.bg-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    padding: 100px 0;
+}
+
+select {
+    padding: 10px;
+}
+
+.slogan {
+    margin-top: 15%;
+}
+
+.filtres {
+    display: flex;
+    gap: 30px;
+}
+
+.input-group {
+    margin: 30px 0 70px 0;
+}
+
+.ingredients {
+    color: var(--Grey, #7A7A7A);
+    font-family: Manrope;
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 1.08px;
+}
+
+.quantity {
+    color: var(--Grey, #7A7A7A);
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+p {
+    color: var(--Black, #1B1B1B);
+    font-family: Manrope;
+    font-size: 14px;
+    font-style: none;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.recettes-container {
+    display: flex;
+    flex-wrap: wrap;   
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+article {
+    width: 25%;
+    height: 700px;
+    border-radius: 21px;
+    background-color: white;
+    position: relative;
+    margin: 30px;
+}
+
+.imgCard {
+    width: 100%;
+    height: 25%;
+    border-top-left-radius: 21px;
+    border-top-right-radius: 21px;
+    object-fit: cover;
+}
+
+.infoCard {
+    padding: 20px;
+}
+
+.description {
+    height: 65px;
+    overflow: hidden;
+    margin-bottom: 40px;
+}
+
+.ingredients ul {
+    column-count: 2; 
+    margin: 0;
+    padding: 0;
+}
+
+.ingredients ul li {
+    margin-bottom: 10px;
+    list-style-type: none;
+    break-inside: avoid;
+}
+
+.time {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background-color: yellow;
+    padding: 5px;
+    border-radius: 14px;
+}
