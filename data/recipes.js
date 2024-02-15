@@ -1785,24 +1785,27 @@ recipesData.forEach(recipe => {
     // Ajoute la classe "recipe" à l'article
     article.classList.add('recipe');
 
+    // Ajoute l'ID de la recette comme attribut data
+    article.setAttribute('data-id', recipe.id);
+
     // Construit le contenu de l'article
     article.innerHTML = `
         <img class="imgCard" src="assets/ImagesPlats/${recipe.image}" alt="${recipe.name}">
         <div class="infoCard">
-        <h2>${recipe.name}</h2>
-        <h3>RECETTE</h3>
-        <p class="description">${recipe.description}</p>
-        <div class="ingredients">
-            <h3>INGREDIENTS</h3>
-            <ul>
-                ${recipe.ingredients.map(ingredient => `
-                    <li>
-                        <p class="ingredient">${ingredient.ingredient}</p>
-                        <p class="quantity">${ingredient.quantity} ${ingredient.unit ? ingredient.unit : ''}</p>
-                    </li>
-                `).join('')}
-            </ul>
-        </div>
+            <h2>${recipe.name}</h2>
+            <h3>RECETTE</h3>
+            <p class="description">${recipe.description}</p>
+            <div class="ingredients">
+                <h3>INGREDIENTS</h3>
+                <ul>
+                    ${recipe.ingredients.map(ingredient => `
+                        <li>
+                            <p class="ingredient">${ingredient.ingredient}</p>
+                            <p class="quantity">${ingredient.quantity !== undefined ? ingredient.quantity : '&nbsp;' }${ingredient.quantity !== undefined && ingredient.unit ? ' ' + ingredient.unit : ''}</p>
+                        </li>
+                    `).join('')}
+                </ul>
+            </div>
         </div>
         <div class="time">${recipe.time}min</div>
     `;
@@ -1810,3 +1813,104 @@ recipesData.forEach(recipe => {
     // Ajoute l'article au conteneur des recettes
     recipesContainer.appendChild(article);
 });
+
+// Récupérez les sélecteurs appropriés
+const ingredientsSelect = document.getElementById('ingrédients');
+const appareilsSelect = document.getElementById('appareils');
+const ustensilesSelect = document.getElementById('ustensiles');
+
+// Créez des ensembles pour stocker les valeurs uniques d'ingrédients, d'appareils et d'ustensiles
+const uniqueIngredients = new Set();
+const uniqueAppareils = new Set();
+const uniqueUstensiles = new Set();
+
+// Parcourez les données pour extraire les valeurs uniques
+recipesData.forEach(recipe => {
+    recipe.ingredients.forEach(ingredient => {
+        uniqueIngredients.add(ingredient.ingredient);
+    });
+
+    uniqueAppareils.add(recipe.appliance);
+
+    // Vérifiez si la propriété 'ustensiles' est définie avant de l'itérer
+    if (recipe.ustensils) {
+        recipe.ustensils.forEach(ustensil => {
+            uniqueUstensiles.add(ustensil);
+        });
+    }
+});
+
+// Ajoutez les options aux sélecteurs
+uniqueIngredients.forEach(ingredient => {
+    const option = document.createElement('option');
+    option.value = ingredient;
+    option.textContent = ingredient;
+    ingredientsSelect.appendChild(option);
+});
+
+uniqueAppareils.forEach(appareil => {
+    const option = document.createElement('option');
+    option.value = appareil;
+    option.textContent = appareil;
+    appareilsSelect.appendChild(option);
+});
+
+uniqueUstensiles.forEach(ustensil => {
+    const option = document.createElement('option');
+    option.value = ustensil;
+    option.textContent = ustensil;
+    ustensilesSelect.appendChild(option);
+});
+
+// Mettre à jour le nombre total de recettes affichées
+function updateTotalRecipesDisplayed() {
+    const totalRecipesElement = document.getElementById('total-recipes');
+    const totalRecipesDisplayed = recipesContainer.childElementCount;
+    totalRecipesElement.textContent = totalRecipesDisplayed + ' recettes';
+}
+
+// Appeler la fonction pour mettre à jour le nombre total de recettes affichées
+updateTotalRecipesDisplayed();
+
+// Fonction pour filtrer les recettes en fonction des options sélectionnées
+function filterRecipes() {
+    // Récupérez les valeurs sélectionnées dans chaque sélecteur
+    const selectedIngredients = ingredientsSelect.value.toLowerCase();
+    const selectedAppareils = appareilsSelect.value.toLowerCase();
+    const selectedUstensiles = ustensilesSelect.value.toLowerCase();
+
+    // Parcourez les recettes pour les filtrer en fonction des options sélectionnées
+    recipesData.forEach(recipe => {
+        const article = document.querySelector(`.recipe[data-id="${recipe.id}"]`);
+        
+        // Vérifiez si un filtre est actif
+        const ingredientFilterActive = selectedIngredients !== '';
+        const appareilFilterActive = selectedAppareils !== '';
+        const ustensileFilterActive = selectedUstensiles !== '';
+
+        // Si aucun filtre n'est actif, affichez l'article
+        if (!ingredientFilterActive && !appareilFilterActive && !ustensileFilterActive) {
+            article.style.display = 'block';
+            return;
+        }
+
+        // Sinon, appliquez les filtres appropriés
+        const ingredientMatches = !ingredientFilterActive || recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(selectedIngredients));
+        const appareilMatches = !appareilFilterActive || recipe.appliance.toLowerCase().includes(selectedAppareils);
+        const ustensileMatches = !ustensileFilterActive || (recipe.ustensils && recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(selectedUstensiles)));
+
+        const shouldDisplay = ingredientMatches && appareilMatches && ustensileMatches;
+
+        // Affichez ou masquez l'article en fonction du filtre
+        article.style.display = shouldDisplay ? 'block' : 'none';
+    });
+
+    // Mettez à jour le nombre total de recettes affichées
+    updateTotalRecipesDisplayed();
+}
+
+
+// Ajoutez des écouteurs d'événements pour les sélecteurs de filtres
+ingredientsSelect.addEventListener('change', filterRecipes);
+appareilsSelect.addEventListener('change', filterRecipes);
+ustensilesSelect.addEventListener('change', filterRecipes);

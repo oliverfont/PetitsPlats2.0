@@ -32,7 +32,11 @@ margin: 20px 0;
 }
 
 select {
-    padding: 10px;
+    padding: 15px;
+    width: 200px;
+    border: none;
+    border-radius: 11px;
+    margin-right: 5%;
 }
 
 .slogan {
@@ -41,7 +45,22 @@ select {
 
 .filtres {
     display: flex;
-    gap: 30px;
+}
+
+.row {
+    --bs-gutter-x: -4.5rem;
+}
+
+.text-end {
+    color: var(--Black, #1B1B1B);
+font-family: Anton;
+font-size: 21px;
+font-style: normal;
+font-weight: 400;
+line-height: normal; 
+align-items: center;
+display: flex;
+justify-content: end;
 }
 
 .btn {
@@ -68,7 +87,15 @@ select {
     font-style: normal;
     font-weight: 700;
     line-height: normal;
-    letter-spacing: 1.08px;
+    margin-bottom: 0rem;
+}
+
+p .ingredients {
+    margin-bottom: 0rem;
+}
+
+p .quantity {
+    margin-bottom: 1,5rem;
 }
 
 .quantity {
@@ -78,6 +105,7 @@ select {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+    margin-bottom: 1,5rem;
 }
 
 p {
@@ -87,6 +115,7 @@ p {
     font-style: none;
     font-weight: 500;
     line-height: normal;
+    margin-bottom: 0rem;
 }
 
 .recettes-container {
@@ -97,17 +126,17 @@ p {
 }
 
 article {
-    width: 25%;
-    height: 700px;
+    width: 30%;
+    height: 750px;
     border-radius: 21px;
     background-color: white;
     position: relative;
-    margin: 30px;
+    margin: 20px;
 }
 
 .imgCard {
     width: 100%;
-    height: 25%;
+    height: 300px;
     border-top-left-radius: 21px;
     border-top-right-radius: 21px;
     object-fit: cover;
