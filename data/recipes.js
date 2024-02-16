@@ -1774,57 +1774,64 @@ const recipesData = [
         "ustensils":["rouleau à patisserie","fouet"]
     }
 ]
-
 const recipesContainer = document.querySelector('.recettes-container');
+let filteredRecipes = recipesData.slice(); // Copie des recettes originales
+
+// Mettre à jour le nombre total de recettes affichées
+function updateTotalRecipesDisplayed() {
+    const totalRecipesElement = document.getElementById('total-recipes');
+    const totalRecipesDisplayed = recipesContainer.childElementCount;
+    totalRecipesElement.textContent = totalRecipesDisplayed + ' recettes';
+}
 
 // Parcours les données et crée les éléments HTML pour chaque recette
-recipesData.forEach(recipe => {
-    // Crée un élément d'article
-    const article = document.createElement('article');
+function displayRecipes(recipes) {
+    // Vide le contenu actuel du conteneur des recettes
+    recipesContainer.innerHTML = '';
 
-    // Ajoute la classe "recipe" à l'article
-    article.classList.add('recipe');
-
-    // Ajoute l'ID de la recette comme attribut data
-    article.setAttribute('data-id', recipe.id);
-
-    // Construit le contenu de l'article
-    article.innerHTML = `
-        <img class="imgCard" src="assets/ImagesPlats/${recipe.image}" alt="${recipe.name}">
-        <div class="infoCard">
-            <h2>${recipe.name}</h2>
-            <h3>RECETTE</h3>
-            <p class="description">${recipe.description}</p>
-            <div class="ingredients">
-                <h3>INGREDIENTS</h3>
-                <ul>
-                    ${recipe.ingredients.map(ingredient => `
-                        <li>
-                            <p class="ingredient">${ingredient.ingredient}</p>
-                            <p class="quantity">${ingredient.quantity !== undefined ? ingredient.quantity : '&nbsp;' }${ingredient.quantity !== undefined && ingredient.unit ? ' ' + ingredient.unit : ''}</p>
-                        </li>
-                    `).join('')}
-                </ul>
+    // Parcours les recettes et crée les éléments HTML pour chaque recette
+    recipes.forEach(recipe => {
+        const article = document.createElement('article');
+        article.classList.add('recipe');
+        article.setAttribute('data-id', recipe.id);
+        article.innerHTML = `
+            <img class="imgCard" src="assets/ImagesPlats/${recipe.image}" alt="${recipe.name}">
+            <div class="infoCard">
+                <h2>${recipe.name}</h2>
+                <h3>RECETTE</h3>
+                <p class="description">${recipe.description}</p>
+                <div class="ingredients">
+                    <h3>INGREDIENTS</h3>
+                    <ul>
+                        ${recipe.ingredients.map(ingredient => `
+                            <li>
+                                <p class="ingredient">${ingredient.ingredient}</p>
+                                <p class="quantity">${ingredient.quantity !== undefined ? ingredient.quantity : '&nbsp;' }${ingredient.quantity !== undefined && ingredient.unit ? ' ' + ingredient.unit : ''}</p>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="time">${recipe.time}min</div>
-    `;
+            <div class="time">${recipe.time}min</div>
+        `;
+        recipesContainer.appendChild(article);
+    });
 
-    // Ajoute l'article au conteneur des recettes
-    recipesContainer.appendChild(article);
-});
+    // Mettre à jour le nombre total de recettes affichées
+    updateTotalRecipesDisplayed();
+}
 
 // Récupérez les sélecteurs appropriés
 const ingredientsSelect = document.getElementById('ingrédients');
 const appareilsSelect = document.getElementById('appareils');
 const ustensilesSelect = document.getElementById('ustensiles');
 
-// Créez des ensembles pour stocker les valeurs uniques d'ingrédients, d'appareils et d'ustensiles
+// Créer des ensembles pour stocker les valeurs uniques d'ingrédients, d'appareils et d'ustensiles
 const uniqueIngredients = new Set();
 const uniqueAppareils = new Set();
 const uniqueUstensiles = new Set();
 
-// Parcourez les données pour extraire les valeurs uniques
+// Parcourir les données pour extraire les valeurs uniques
 recipesData.forEach(recipe => {
     recipe.ingredients.forEach(ingredient => {
         uniqueIngredients.add(ingredient.ingredient);
@@ -1832,7 +1839,6 @@ recipesData.forEach(recipe => {
 
     uniqueAppareils.add(recipe.appliance);
 
-    // Vérifiez si la propriété 'ustensiles' est définie avant de l'itérer
     if (recipe.ustensils) {
         recipe.ustensils.forEach(ustensil => {
             uniqueUstensiles.add(ustensil);
@@ -1840,7 +1846,7 @@ recipesData.forEach(recipe => {
     }
 });
 
-// Ajoutez les options aux sélecteurs
+// Ajouter les options aux sélecteurs
 uniqueIngredients.forEach(ingredient => {
     const option = document.createElement('option');
     option.value = ingredient;
@@ -1862,55 +1868,53 @@ uniqueUstensiles.forEach(ustensil => {
     ustensilesSelect.appendChild(option);
 });
 
-// Mettre à jour le nombre total de recettes affichées
-function updateTotalRecipesDisplayed() {
-    const totalRecipesElement = document.getElementById('total-recipes');
-    const totalRecipesDisplayed = recipesContainer.childElementCount;
-    totalRecipesElement.textContent = totalRecipesDisplayed + ' recettes';
+// Fonction de filtrage par ingrédient
+function filterByIngredient(selectedIngredient, recipes) {
+    if (!selectedIngredient) return recipes; // Si aucun ingrédient sélectionné, renvoyer toutes les recettes
+    return recipes.filter(recipe =>
+        recipe.ingredients.some(ingredient =>
+            ingredient.ingredient.toLowerCase().includes(selectedIngredient.toLowerCase())
+        )
+    );
 }
 
-// Appeler la fonction pour mettre à jour le nombre total de recettes affichées
-updateTotalRecipesDisplayed();
+// Fonction de filtrage par appareil
+function filterByAppliance(selectedAppliance, recipes) {
+    if (!selectedAppliance) return recipes; // Si aucun appareil sélectionné, renvoyer toutes les recettes
+    return recipes.filter(recipe =>
+        recipe.appliance.toLowerCase().includes(selectedAppliance.toLowerCase())
+    );
+}
 
-// Fonction pour filtrer les recettes en fonction des options sélectionnées
+// Fonction de filtrage par ustensile
+function filterByUstensil(selectedUstensil, recipes) {
+    if (!selectedUstensil) return recipes; // Si aucun ustensile sélectionné, renvoyer toutes les recettes
+    return recipes.filter(recipe =>
+        recipe.ustensils && recipe.ustensils.some(ustensil =>
+            ustensil.toLowerCase().includes(selectedUstensil.toLowerCase())
+        )
+    );
+}
+
+// Fonction de filtrage des recettes
 function filterRecipes() {
-    // Récupérez les valeurs sélectionnées dans chaque sélecteur
-    const selectedIngredients = ingredientsSelect.value.toLowerCase();
-    const selectedAppareils = appareilsSelect.value.toLowerCase();
-    const selectedUstensiles = ustensilesSelect.value.toLowerCase();
+    let ingredientFiltered = filterByIngredient(ingredientsSelect.value.toLowerCase(), recipesData.slice());
+    let applianceFiltered = filterByAppliance(appareilsSelect.value.toLowerCase(), recipesData.slice());
+    let ustensilFiltered = filterByUstensil(ustensilesSelect.value.toLowerCase(), recipesData.slice());
 
-    // Parcourez les recettes pour les filtrer en fonction des options sélectionnées
-    recipesData.forEach(recipe => {
-        const article = document.querySelector(`.recipe[data-id="${recipe.id}"]`);
-        
-        // Vérifiez si un filtre est actif
-        const ingredientFilterActive = selectedIngredients !== '';
-        const appareilFilterActive = selectedAppareils !== '';
-        const ustensileFilterActive = selectedUstensiles !== '';
+    // Intersection des résultats des trois filtres
+    filteredRecipes = ingredientFiltered.filter(recipe =>
+        applianceFiltered.includes(recipe) && ustensilFiltered.includes(recipe)
+    );
 
-        // Si aucun filtre n'est actif, affichez l'article
-        if (!ingredientFilterActive && !appareilFilterActive && !ustensileFilterActive) {
-            article.style.display = 'block';
-            return;
-        }
-
-        // Sinon, appliquez les filtres appropriés
-        const ingredientMatches = !ingredientFilterActive || recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(selectedIngredients));
-        const appareilMatches = !appareilFilterActive || recipe.appliance.toLowerCase().includes(selectedAppareils);
-        const ustensileMatches = !ustensileFilterActive || (recipe.ustensils && recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(selectedUstensiles)));
-
-        const shouldDisplay = ingredientMatches && appareilMatches && ustensileMatches;
-
-        // Affichez ou masquez l'article en fonction du filtre
-        article.style.display = shouldDisplay ? 'block' : 'none';
-    });
-
-    // Mettez à jour le nombre total de recettes affichées
-    updateTotalRecipesDisplayed();
+    // Affichez les recettes filtrées
+    displayRecipes(filteredRecipes);
 }
-
 
 // Ajoutez des écouteurs d'événements pour les sélecteurs de filtres
 ingredientsSelect.addEventListener('change', filterRecipes);
 appareilsSelect.addEventListener('change', filterRecipes);
 ustensilesSelect.addEventListener('change', filterRecipes);
+
+// Afficher toutes les recettes au chargement de la page
+displayRecipes(recipesData);
