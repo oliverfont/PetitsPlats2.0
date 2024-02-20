@@ -1,0 +1,171 @@
+<mxfile host="app.diagrams.net" modified="2024-02-20T09:40:27.743Z" agent="Mozilla/5.0 (X11; Linux x86_64; rv:123.0) Gecko/20100101 Firefox/123.0" etag="L7wUPtKp5mAoH0XvZdRJ" version="23.1.2" type="device">
+  <diagram name="Page-1" id="zPvWJne8ynNipNKd_KLU">
+    <mxGraphModel dx="1114" dy="615" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-1" target="Y08JfKVmWU3i85PXC5F_-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-1" target="Y08JfKVmWU3i85PXC5F_-16">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="380" y="240" />
+              <mxPoint x="380" y="240" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-1" value="Début" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="340" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-2" target="Y08JfKVmWU3i85PXC5F_-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-2" value="L’utilisateur entre au moins 3 caractères&lt;br&gt;dans la barre de recherche principale" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-9" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-3" target="Y08JfKVmWU3i85PXC5F_-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-20" value="Oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-9">
+          <mxGeometry x="0.025" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-22" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-3" target="Y08JfKVmWU3i85PXC5F_-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-23" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-22">
+          <mxGeometry x="-0.175" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-3" value="Des recettes&amp;nbsp; contiennent le(s) mot(s) clef(s) entré(s) par l&#39;utilisateur" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="140" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-10" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-7" target="Y08JfKVmWU3i85PXC5F_-8">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-7" value="L’interface est actualisée avec les résultats de recherche" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="360" width="120" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-12" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-8" target="Y08JfKVmWU3i85PXC5F_-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-8" value="Les éléments disponibles&lt;br&gt;dans les champs de recherche avancée sont actualisés" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="520" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-14" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-11" target="Y08JfKVmWU3i85PXC5F_-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-15" value="Oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-14">
+          <mxGeometry x="0.025" y="1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-42" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-11" target="Y08JfKVmWU3i85PXC5F_-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-43" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-42">
+          <mxGeometry x="-0.8414" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-11" value="L&#39;utilisateur trouve la recette de son choix" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="680" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-41" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-13" target="Y08JfKVmWU3i85PXC5F_-40">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-13" value="L’utilisateur sélectionne une recette" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="480" y="880" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-29" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-16" target="Y08JfKVmWU3i85PXC5F_-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-47" value="Soit" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-29">
+          <mxGeometry x="-0.16" y="-3" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-44" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-16" target="Y08JfKVmWU3i85PXC5F_-24">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-46" value="Soit" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-44">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-16" value="L&#39;utilisateur&amp;nbsp;commence ou précise sa recherche par un filtre dans la fonction de recherche avancée" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="160" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-21" value="L&#39;interface affiche &quot;Aucune recette ne contient ‘XXX&#39; &quot;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="680" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-27" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-24" target="Y08JfKVmWU3i85PXC5F_-26">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-24" value="L&#39;utilisateur utilise la barre de recherche dans la fonction de recherche avancée" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="120" y="170" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-45" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-26" target="Y08JfKVmWU3i85PXC5F_-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-26" value="Au fur et à mesure du remplissage les mots clés ne correspondant pas à la&lt;br&gt;frappe dans le champ disparaissent des options du filtre" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="100" y="325" width="160" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-49" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-28" target="Y08JfKVmWU3i85PXC5F_-48">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-28" value="L&#39;utilisateur choisi une option disponible proposée dans l&#39;un des filtres de recherche avancée" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="340" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-52" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-31" target="Y08JfKVmWU3i85PXC5F_-51">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-31" value="L’interface est actualisée avec les résultats du filtre" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="710" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-55" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-33" target="Y08JfKVmWU3i85PXC5F_-13">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-56" value="Oui" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-55">
+          <mxGeometry x="-0.8" y="-1" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-57" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-33" target="Y08JfKVmWU3i85PXC5F_-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="40" y="1070" />
+              <mxPoint x="40" y="40" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-58" value="Non" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="Y08JfKVmWU3i85PXC5F_-57">
+          <mxGeometry x="-0.9553" relative="1" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-33" value="L&#39;utilisateur trouve la recette de son choix" style="rhombus;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="1010" width="120" height="120" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-40" value="Fin" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="700" y="880" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-50" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-48" target="Y08JfKVmWU3i85PXC5F_-31">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-48" value="Le mot clé de l&#39;option sélectionnée apparaît sous forme de tag sous la recherche principale" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="520" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-54" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="Y08JfKVmWU3i85PXC5F_-51" target="Y08JfKVmWU3i85PXC5F_-33">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="Y08JfKVmWU3i85PXC5F_-51" value="Les éléments disponibles&lt;br&gt;dans les champs de recherche avancée sont actualisés" style="shape=parallelogram;perimeter=parallelogramPerimeter;whiteSpace=wrap;html=1;fixedSize=1;" vertex="1" parent="1">
+          <mxGeometry x="320" y="880" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
