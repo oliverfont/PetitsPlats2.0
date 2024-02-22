@@ -121,19 +121,9 @@ document.addEventListener('DOMContentLoaded', function() {
         return lowerCaseName;
     }
 
-    // Fonction pour mettre à jour les dropdowns en fonction des recettes filtrées
-    function updateDropdowns() {
-        const filteredIngredients = extractUniqueOptions(filteredRecipes, 'ingredients').sort();
-        const filteredAppliances = extractUniqueOptions(filteredRecipes, 'appliance').sort();
-        const filteredUtensils = extractUniqueOptions(filteredRecipes, 'ustensils').sort();
 
-        updateDropdownOptions(filteredIngredients, ingredientsDropdown);
-        updateDropdownOptions(filteredAppliances, appliancesDropdown);
-        updateDropdownOptions(filteredUtensils, utensilsDropdown);
-    }
-
-    // Fonction pour mettre à jour les options d'un dropdown donné
-function updateDropdownOptions(options, dropdownContent) {
+// Mettre à jour les options d'un dropdown donné avec un écouteur d'événements pour gérer la sélection d'une option
+function updateDropdownOptions(options, dropdownContent, filterType) {
     const optionsContainer = dropdownContent.querySelector('.options');
     // Supprimer les anciennes options
     optionsContainer.innerHTML = '';
@@ -147,9 +137,39 @@ function updateDropdownOptions(options, dropdownContent) {
         optionElement.addEventListener('click', function() {
             const selectedOption = this.textContent;
             addTag(selectedOption);
+            filterRecipes(filterType, selectedOption); // Filtrer les recettes en fonction de l'option sélectionnée
         });
     });
 }
+
+// Filtrer les recettes en fonction de l'option sélectionnée dans le dropdown
+function filterRecipes(filterType, selectedOption) {
+    filteredRecipes = recipesData.filter(recipe => {
+        switch(filterType) {
+            case 'ingredients':
+                return recipe.ingredients.some(ingredient => normalizeIngredientName(ingredient.ingredient) === selectedOption);
+            case 'appliance':
+                return normalizeIngredientName(recipe.appliance) === selectedOption;
+            case 'utensils':
+                return recipe.ustensils.some(utensil => normalizeIngredientName(utensil) === selectedOption);
+            default:
+                return false;
+        }
+    });
+    displayRecipes(filteredRecipes); // Afficher les recettes filtrées
+}
+
+// Mettre à jour les dropdowns en fonction des recettes filtrées
+function updateDropdowns() {
+    const filteredIngredients = extractUniqueOptions(filteredRecipes, 'ingredients').sort();
+    const filteredAppliances = extractUniqueOptions(filteredRecipes, 'appliance').sort();
+    const filteredUtensils = extractUniqueOptions(filteredRecipes, 'ustensils').sort();
+
+    updateDropdownOptions(filteredIngredients, ingredientsDropdown, 'ingredients');
+    updateDropdownOptions(filteredAppliances, appliancesDropdown, 'appliance');
+    updateDropdownOptions(filteredUtensils, utensilsDropdown, 'utensils');
+}
+
 
 
     // Fonction pour extraire les options uniques
