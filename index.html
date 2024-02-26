@@ -40,7 +40,7 @@
             <div class="col-9 filtres">
                 <div class="dropdown ingredients">
                     <button class="dropbtn">Ingrédients</button>
-                    <div id="ingrédients" class="myDropdown">
+                    <div id="ingrédients" class="myDropdown" data-filter-type="ingredients">
                         <input type="text" placeholder="" class="filterInput">
                         <div class="options">
                         </div>
@@ -48,7 +48,7 @@
                 </div>
                 <div class="dropdown appliances">
                     <button class="dropbtn">Appareils</button>
-                    <div id="appareils" class="myDropdown">
+                    <div id="appareils" class="myDropdown" data-filter-type="appareils">
                         <input type="text" placeholder="" class="filterInput">
                         <div class="options">
                         </div>
@@ -56,7 +56,7 @@
                 </div>
                 <div class="dropdown utensils">
                     <button class="dropbtn">Ustensiles</button>
-                    <div id="ustensiles" class="myDropdown">
+                    <div id="ustensiles" class="myDropdown" data-filter-type="ustensiles">
                         <input type="text" placeholder="" class="filterInput">
                         <div class="options">
                         </div>
@@ -64,7 +64,7 @@
                 </div>            </div>
             <div class="col-3 text-end" id="total-recipes">1500 recettes !</div>
         </div> 
-        <div id="selectedIngredients"></div>
+        <div id="selectedOption"></div>
         <div id="selectedAppliances"></div>
         <div id="selectedUtensils"></div>
         

@@ -2,7 +2,8 @@ document.addEventListener('DOMContentLoaded', function() {
     const recipesContainer = document.querySelector('.recettes-container');
     const totalRecipesElement = document.getElementById('total-recipes');
     const searchInput = document.getElementById('search-form').querySelector('input');
-    const selectedIngredients = document.getElementById('selectedIngredients');
+    const selectedIngredients = document.getElementById('selectedOption');
+
     let filters = []; // Stockage des filtres
     let filteredRecipes = []; // Stockage des recettes filtrées
 
@@ -64,66 +65,89 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-// Gestionnaire d'événements pour le formulaire de recherche
-document.getElementById('search-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Empêche la soumission du formulaire
+    // Gestionnaire d'événements pour le formulaire de recherche
+    document.getElementById('search-form').addEventListener('submit', function(event) {
+        event.preventDefault(); // Empêche la soumission du formulaire
+        const searchTerm = searchInput.value.trim(); // Récupère la valeur de l'input
+        addTagToSelectedIngredients(searchTerm); // Ajoute le terme de recherche comme tag
+        searchInput.value = ''; // Efface le contenu de l'input après avoir ajouté le tag
+        filterRecipesBySelectedOptions(); // Filtrer les recettes par les options sélectionnées
+    });
 
-    const searchTerm = searchInput.value.trim();
-    if (searchTerm) {
-        addTagToSelectedIngredients(searchTerm);
-        searchInput.value = ''; // Réinitialise l'input de recherche
+    // Fonction pour ajouter un tag dans la div selectedIngredients
+    function addTagToSelectedIngredients(tagText) {
+        const tagElement = document.createElement('div');
+        tagElement.classList.add('selected-option');
+        tagElement.textContent = tagText;
 
-        // Ajouter le terme de recherche aux filtres
-        filters.push(searchTerm.toLowerCase());
+        // Gestionnaire d'événements pour supprimer le tag
+        tagElement.addEventListener('click', function() {
+            tagElement.remove(); // Supprimer le tag de l'interface utilisateur
+            filterRecipesBySelectedOptions(); // Filtrer les recettes à nouveau après la suppression du tag
+        });
 
-        // Filtrer les recettes avec les nouveaux filtres
-        applyFilters();
+        // Ajouter le tag à la liste des tags sélectionnés
+        selectedIngredients.appendChild(tagElement);
     }
+
+// Gestionnaire d'événements pour supprimer un tag
+document.querySelectorAll('.selected-option').forEach(tagElement => {
+    tagElement.addEventListener('click', function() {
+        removeTag(tagElement);
+    });
 });
 
-// Fonction pour appliquer les filtres aux recettes
-function applyFilters() {
-    if (filters.length > 0) {
-        // Filtrer les recettes correspondant aux filtres
-        filteredRecipes = recipesData.filter(recipe => {
-            return filters.every(filter => {
-                return (
-                    recipe.name.toLowerCase().includes(filter) ||
-                    recipe.description.toLowerCase().includes(filter) ||
-                    recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(filter))
-                );
-            });
-        });
-        // Afficher les recettes filtrées
-        displayRecipes(filteredRecipes);
-    } else {
-        // Si aucun filtre n'est défini, afficher toutes les recettes
-        displayRecipes(recipesData);
+// Fonction pour supprimer un tag
+function removeTag(tagElement) {
+    const tagText = tagElement.textContent.trim().toLowerCase();
+    tagElement.remove();
+    removeFilter(tagText); // Retirer le filtre associé
+    filterRecipesBySelectedOptions(); // Filtrer les recettes à nouveau après la suppression du tag
+}
+
+// Fonction pour retirer le filtre associé des filtres utilisés pour filtrer les recettes
+function removeFilter(filterValue) {
+    // Retirez le filtre des options sélectionnées
+    const index = filters.indexOf(filterValue);
+    if (index !== -1) {
+        filters.splice(index, 1);
     }
 }
 
-// Fonction pour ajouter un tag dans la div selectedIngredients
-function addTagToSelectedIngredients(tag) {
-    const tagElement = document.createElement('div');
-    tagElement.classList.add('selected-option');
-    tagElement.textContent = tag;
+// Fonction pour filtrer les recettes en fonction des options sélectionnées dans les tags et de la barre de recherche principale
+function filterRecipesBySelectedOptions() {
+    const selectedOptions = Array.from(document.querySelectorAll('.selected-option')).map(option => option.textContent.trim().toLowerCase());
+    const searchTerm = searchInput.value.trim().toLowerCase();
 
-    // Ajouter un bouton pour supprimer le tag
-    const closeButton = document.createElement('span');
-    closeButton.textContent = 'x';
-    closeButton.classList.add('close-button');
-    closeButton.addEventListener('click', function() {
-        tagElement.remove();
-        // Retirer le tag des filtres
-        const index = filters.indexOf(tag.toLowerCase());
-        if (index !== -1) {
-            filters.splice(index, 1);
-        }
-        // Appliquer à nouveau les filtres
-        applyFilters();
+    // Filtrer les recettes par les options sélectionnées dans les tags
+    filteredRecipes = recipesData.filter(recipe => {
+        const nameMatch = selectedOptions.every(option => {
+            return recipe.name.toLowerCase().includes(option);
+        });
+
+        const ingredientsMatch = selectedOptions.every(option => {
+            return recipe.ingredients.some(ingredient => {
+                return ingredient.ingredient.toLowerCase().includes(option);
+            });
+        });
+
+        const descriptionMatch = selectedOptions.every(option => {
+            return recipe.description.toLowerCase().includes(option);
+        });
+
+        return nameMatch || ingredientsMatch || descriptionMatch;
     });
 
-    tagElement.appendChild(closeButton);
-    selectedIngredients.appendChild(tagElement);
+    // Filtrer les recettes par la barre de recherche principale
+    filteredRecipes = filteredRecipes.filter(recipe => {
+        return (
+            recipe.name.toLowerCase().includes(searchTerm) ||
+            recipe.description.toLowerCase().includes(searchTerm) ||
+            recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchTerm))
+        );
+    });
+
+    // Afficher les recettes filtrées
+    displayRecipes(filteredRecipes);
 }
 });
