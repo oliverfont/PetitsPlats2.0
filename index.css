@@ -45,6 +45,7 @@ select {
 
 .filtres {
     display: flex;
+    gap: 30px;
 }
 
 .row {
@@ -121,8 +122,8 @@ p {
 .recettes-container {
     display: flex;
     flex-wrap: wrap;   
-    justify-content: space-between;
-    margin-top: 30px;
+    justify-content: space-evenly;
+    margin-top: 20px;
 }
 
 article {
@@ -168,7 +169,166 @@ article {
     position: absolute;
     right: 20px;
     top: 20px;
-    background-color: yellow;
+    background-color: #FFD15B;
     padding: 5px;
     border-radius: 14px;
 }
+
+.dropdown-option {
+    padding: 10px;
+}
+
+#selectedOption {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    padding: 15px 35px 0 35px;
+  }
+
+  .search-keyword {
+    margin: 5px;
+    padding: 10px;
+    background-color: #FFD15B;
+    border-radius: 10px;
+  }
+
+  .selected-option {
+    margin: 5px;
+    padding: 10px;
+    background-color: #FFD15B;
+    border-radius: 10px;
+  }
+
+  .remove-tag {
+    margin-left: 60px;
+    font-weight: bolder;
+  }
+
+
+  #myInput {
+    box-sizing: border-box;
+    background-image: url('searchicon.png');
+    background-position: 14px 12px;
+    background-repeat: no-repeat;
+    font-size: 16px;
+    padding: 14px 20px 12px 45px;
+    border: none;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  #myInput:focus {outline: 3px solid #ddd;}
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .myDropdown {
+    display: none;
+    position: absolute;
+    background-color: #f6f6f6;
+    overflow: auto;
+    border: 1px solid #ddd;
+    z-index: 1;
+  }
+  
+  .dropdown-content .dropdown-option {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown .dropdown-option:hover {background-color: #ddd;}
+  
+  .show {
+      display: flex;
+      width: 200px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: -10px;
+      padding-top: 5px;
+      background-color: white;
+      border: none;
+      border-bottom-left-radius: 11px;
+      border-bottom-right-radius: 11px;
+      overflow-x: scroll;
+      max-height: 400px;
+  }
+  
+  .options {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      width: 100%;
+  }
+  
+  .options option {
+      padding: 5px 0 5px 20px;
+      text-decoration: none;
+      color: black;
+      width: 100%;
+      color: var(--Black, #1B1B1B);
+font-family: Manrope;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal; 
+  }
+  
+  .options option:hover {
+      background-color: #FFD15B;
+  }
+  
+  /* Style pour la flèche */
+  .dropbtn::after {
+      content: "";
+      background-image: url('/assets/Vector1.svg');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 20px;
+      height: 20px;
+      display: inline-block;
+      margin: 5px 0 -10px 40px;
+  }
+  
+  /* Style pour le bouton */
+  .dropbtn {
+      padding: 15px;
+      width: 200px;
+      border: none;
+      border-radius: 11px;
+      margin-right: 5%;
+      background: #FFF; 
+      padding: 16px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+  }
+  
+  /* Style pour le survol du bouton */
+  .dropbtn:hover, .dropbtn:focus {
+      background-color: #;
+  }
+  
+  .filterInput {
+      width: 180px;
+      justify-content: center;
+      display: flex;
+      margin: 10px;
+      width: 163px;
+      height: 36px;
+      flex-shrink: 0;
+    }
+  
+    .filterInput::after {
+      content: "\1F50D"; /* Code Unicode pour l'icône de la loupe */
+      font-family: 'Arial', sans-serif; /* Police d'icône */
+      font-size: 16px; /* Taille de l'icône */
+      color: #aaa; /* Couleur de l'icône */
+      position: absolute; /* Position absolue pour le placer à la fin de l'input */
+      top: 50%; /* Alignement vertical */
+      right: 10px; /* Distance de la droite */
+      transform: translateY(-50%); /* Ajustement pour le centrage vertical */
+      cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
+  }
