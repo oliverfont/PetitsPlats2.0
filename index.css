@@ -332,3 +332,31 @@ line-height: normal;
       transform: translateY(-50%); /* Ajustement pour le centrage vertical */
       cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
   }
+
+  @media only screen and (max-width: 600px) {
+
+    article {
+        width: auto;
+        height: auto;
+    }
+
+    .recettes-container {
+        margin-top: 0;
+    }
+
+    .filtres {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    main {
+        padding: 30px;
+    }
+
+    .text-end {
+        width: 100%;
+        margin: 20px;
+    }
+    
+  } 

@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', function() {
             optionElement.addEventListener('click', function() {
                 const tagText = optionElement.textContent.trim(); // Récupère le texte de l'option
                 addTagToSelectedOptions(tagText); // Ajoute le texte de l'option comme tag
-                filterRecipes(); // Filtrer les recettes par les options sélectionnées
+                filterRecipes(); // Filtre les recttes par les options sélectionnées
             });
         }
     }
@@ -208,7 +208,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return option.toLowerCase().trim();
     }
 
-    // Appel initial pour mettre à jour les options des dropdowns
+    // Appel initial pour mettre à jour les option des dropdowns
     updateDropdownOptions(recipesData);
 
     // Déclaration de la variable filters pour stocker les filtres actifs
@@ -258,7 +258,7 @@ document.addEventListener('DOMContentLoaded', function() {
         return false;
     }
 
-    // Fonction pour mettre à jour les filtres et filtrer les recettes
+    // Fonction pour mettre à jour les filtre et filtrer les recettes
     function updateFilters() {
         filters = [];
         const selectedOptionTags = document.querySelectorAll('.selected-option');
@@ -317,7 +317,7 @@ function setupDropdowns(dropdownClass) {
     }
 }
 
-// Gestionnaire d'événements pour la fermeture des dropdowns lorsqu'on clique à l'extérieur
+// Gestionnaire d'événements pour la fermetre des dropdowns lorsqu'on clique à l'extérieur
 document.addEventListener('click', function(event) {
     const dropdowns = document.querySelectorAll('.myDropdown');
     
@@ -331,6 +331,6 @@ document.addEventListener('click', function(event) {
     }
 });
 
-// Appeler la fonction setupDropdowns pour chaque dropdown
+// Appeler la fonction setupDropdowns pour chqque dropdown
 setupDropdowns('dropdown');
 });
