@@ -42,9 +42,16 @@ document.addEventListener('DOMContentLoaded', function() {
             recipesContainer.appendChild(article);
             displayedRecipesCount++;
         });
-
-        // Mise à jour du nombre total de recettes affichées
-        totalRecipesElement.textContent = displayedRecipesCount + ' recettes';
+                // Si aucune recette n'est affichée, afficher le message approprié
+        if (displayedRecipesCount === 0) {
+            recipesContainer.innerHTML = `
+                <p>Aucune recette ne contient '${searchInput.value}', vous pouvez chercher 'tarte aux pommes', 'poisson', etc.</p>
+            `;
+            totalRecipesElement.textContent = '0 recette'
+        } else {
+            // Mise à jour du nombre total de recettes affichées
+            totalRecipesElement.textContent = displayedRecipesCount + ' recettes';
+        }
     }
 
     // Afficher toutes les recettes au chargement de la page
