@@ -104,6 +104,15 @@ justify-content: end;
     right: 3px;
 }
 
+.input-group-append2 {
+    position: absolute;
+    right: 3px;
+    display: flex;
+    align-items: center;
+    top: 33px;
+    right: 50px;
+}
+
 .ingredients {
     color: var(--Grey, #7A7A7A);
     font-family: Manrope;
@@ -226,7 +235,7 @@ article {
 
   #myInput {
     box-sizing: border-box;
-    background-image: url('searchicon.png');
+    background-image: url('assets/searchicon.svg');
     background-position: 14px 12px;
     background-repeat: no-repeat;
     font-size: 16px;
@@ -306,7 +315,7 @@ line-height: normal;
   /* Style pour la flèche */
   .dropbtn::after {
       content: "";
-      background-image: url('./assets/Vector1.svg');
+      background-image: url('assets/Vector1.svg');
       background-size: contain;
       background-repeat: no-repeat;
       width: 20px;
@@ -338,18 +347,18 @@ line-height: normal;
       height: 36px;
       flex-shrink: 0;
     }
+
+    .filterInput:focus {
+        outline:  none;
+    }
   
-    .filterInput::after {
-      content: "\1F50D"; /* Code Unicode pour l'icône de la loupe */
-      font-family: 'Arial', sans-serif; /* Police d'icône */
-      font-size: 16px; /* Taille de l'icône */
-      color: #aaa; /* Couleur de l'icône */
-      position: absolute; /* Position absolue pour le placer à la fin de l'input */
-      top: 50%; /* Alignement vertical */
-      right: 10px; /* Distance de la droite */
-      transform: translateY(-50%); /* Ajustement pour le centrage vertical */
-      cursor: pointer; /* Curseur pointeur pour indiquer qu'il est cliquable */
-  }
+    .loupe {
+        font-size: 18px;
+        color: #aaa;
+        position: absolute;
+        background-color: white;
+        border: none;
+    }
 
   @media only screen and (max-width: 600px) {
 
