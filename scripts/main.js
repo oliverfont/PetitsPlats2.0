@@ -52,11 +52,18 @@ document.addEventListener('DOMContentLoaded', function() {
             recipesContainer.appendChild(article);
             displayedRecipesCount++;
         }
-
-        // Mise à jour du nombre total de recettes affichées
-        totalRecipesElement.textContent = displayedRecipesCount + ' recettes';
+        // Si aucune recette n'est affichée, afficher le message approprié
+        if (displayedRecipesCount === 0) {
+            recipesContainer.innerHTML = `
+                <p>Aucune recette ne contient '${searchInput.value}', vous pouvez chercher 'tarte aux pommes', 'poisson', etc.</p>
+            `;
+            totalRecipesElement.textContent = '0 recette'
+        } else {
+            // Mise à jour du nombre total de recettes affichées
+            totalRecipesElement.textContent = displayedRecipesCount + ' recettes';
+        }
     }
-
+    
     // Afficher toutes les recettes au chargement de la page
     displayRecipes(recipesData);
 
@@ -153,20 +160,31 @@ document.addEventListener('DOMContentLoaded', function() {
         return Array.from(uniqueOptionsSet).sort((a, b) => a.localeCompare(b));
     }
 
-    // Fonction pour mettre à jour les options des dropdowns en fonction des recettes filtrées
     function updateDropdownOptions(recipes) {
         const uniqueIngredients = extractUniqueOptions(recipes, 'ingredients');
         const uniqueAppliances = extractUniqueOptions(recipes, 'appliance');
         const uniqueUtensils = extractUniqueOptions(recipes, 'ustensils');
-
+    
         clearDropdownOptions(); // Supprimer les anciennes options
-
+    
         // Créer les nouvelles options
         createFilterOptions(uniqueIngredients, ingredientsDropdown);
         createFilterOptions(uniqueAppliances, appliancesDropdown);
         createFilterOptions(uniqueUtensils, utensilsDropdown);
+    
+        // Appliquer la classe 'selected' aux options déjà sélectionnées
+        const selectedOptionTags = document.querySelectorAll('.selected-option');
+        selectedOptionTags.forEach(tag => {
+            const tagText = tag.textContent.trim().toLowerCase();
+            const optionElements = document.querySelectorAll('.options option');
+            optionElements.forEach(option => {
+                if (option.textContent.trim().toLowerCase() === tagText) {
+                    option.classList.add('selected');
+                }
+            });
+        });
     }
-
+    
     // Fonction pour vider les options actuelles des dropdowns
     function clearDropdownOptions() {
         ingredientsDropdown.innerHTML = ''; // Vide les options de l'élément dropdown pour les ingrédients
@@ -223,29 +241,40 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Fonction pour ajouter un tag dans la div selectedOptions
     function addTagToSelectedOptions(tagText) {
-        // Vérifier si le tag n'est pas déjà présent
         if (!isTagAlreadySelected(tagText)) {
             const tagElement = document.createElement('div');
             tagElement.classList.add('selected-option');
             tagElement.textContent = tagText;
-
+    
             // Gestionnaire d'événements pour supprimer le tag
             tagElement.addEventListener('click', function() {
-                tagElement.remove(); // Supprimer le tag de l'interface utilisateur
-                removeFilter(tagText); // Retirer le filtre associé
-                filterRecipes(); // Filtrer les recettes à nouveau après la suppression du tag
-                updateDropdownOptions(filteredRecipes); // Mettre à jour les options des dropdowns
+                tagElement.remove();
+                removeFilter(tagText);
+                filterRecipes();
+                updateDropdownOptions(filteredRecipes);
+                // Désélectionner l'option correspondante dans les dropdowns
+                const optionElements = document.querySelectorAll('.options option');
+                optionElements.forEach(option => {
+                    if (option.textContent.trim().toLowerCase() === tagText.toLowerCase().trim()) {
+                        option.classList.remove('selected');
+                    }
+                });
             });
-
-            // Ajouter le tag à la liste des tags sélectionnés
+    
             selectedOptions.appendChild(tagElement);
-
-            // Mettre à jour les filtres et filtrer les recettes
             updateFilters();
+    
+            // Sélectionner l'option correspondante dans les dropdowns
+            const optionElements = document.querySelectorAll('.options option');
+            optionElements.forEach(option => {
+                if (option.textContent.trim().toLowerCase() === tagText.toLowerCase().trim()) {
+                    option.classList.add('selected');
+                }
+            });
         }
     }
+    
 
     // Fonction pour vérifier si un tag est déjà sélectionné
     function isTagAlreadySelected(tagText) {
