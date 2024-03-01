@@ -81,42 +81,42 @@ document.addEventListener('DOMContentLoaded', function() {
         filterRecipes(); // Filtrer les recettes par les options sélectionnées
     });
 
-    // Fonction pour filtrer les recettes en fonction des tags sélectionnés et de la recherche principale
-    function filterRecipes() {
-        console.log('Filtrage des recettes en cours.');
-        const selectedTags = Array.from(document.querySelectorAll('.selected-option')).map(tag => tag.textContent.trim().toLowerCase());
-        const searchTerm = searchInput.value.trim().toLowerCase();
+// Fonction pour normaliser une chaîne de caractères
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
-        // Filtrer les recettes par les options sélectionnées dans les tags et la recherche principale
-        filteredRecipes = recipesData.filter(recipe => {
-            // Vérifier si la recette correspond à la recherche principale
-            const searchMatch = (
-                recipe.name.toLowerCase().includes(searchTerm) || // Vérifier le nom de la recette
-                recipe.description.toLowerCase().includes(searchTerm) || // Vérifier la description de la recette
-                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchTerm)) || // Vérifier les ingrédients
-                recipe.appliance.toLowerCase().includes(searchTerm) || // Vérifier l'appareil
-                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(searchTerm)) // Vérifier les ustensiles
-            );
+// Fonction pour filtrer les recettes en fonction des tags sélectionnés et de la recherche principale
+function filterRecipes() {
+    const selectedTags = Array.from(document.querySelectorAll('.selected-option'), tag => normalizeString(tag.textContent));
+    const searchTerm = normalizeString(searchInput.value);
 
-            // Vérifier si la recette correspond à tous les tags sélectionnés
-            const tagMatch = selectedTags.every(tag =>
-                recipe.name.toLowerCase().includes(tag) ||
-                recipe.description.toLowerCase().includes(tag) ||
-                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(tag)) ||
-                recipe.appliance.toLowerCase().includes(tag) ||
-                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(tag))
-            );
+    // Filtrer les recettes par les options sélectionnées dans les tags et la recherche principale
+    filteredRecipes = recipesData.filter(recipe => {
+        const searchMatch = (
+            normalizeString(recipe.name).includes(searchTerm) ||
+            normalizeString(recipe.description).includes(searchTerm) ||
+            recipe.ingredients.some(ingredient => normalizeString(ingredient.ingredient).includes(searchTerm)) ||
+            normalizeString(recipe.appliance).includes(searchTerm) ||
+            recipe.ustensils.some(ustensil => normalizeString(ustensil).includes(searchTerm))
+        );
 
-            return searchMatch && tagMatch;
-        });
+        const tagMatch = selectedTags.every(tag =>
+            normalizeString(recipe.name).includes(tag) ||
+            normalizeString(recipe.description).includes(tag) ||
+            recipe.ingredients.some(ingredient => normalizeString(ingredient.ingredient).includes(tag)) ||
+            normalizeString(recipe.appliance).includes(tag) ||
+            recipe.ustensils.some(ustensil => normalizeString(ustensil).includes(tag))
+        );
 
-        // Afficher les recettes filtrées
-        console.log('Recettes filtrées :', filteredRecipes);
-        displayRecipes(filteredRecipes);
-        
-        // Mettre à jour les options des dropdowns en fonction des recettes filtrées
-        updateDropdownOptions(filteredRecipes);
-    }
+        return searchMatch && tagMatch;
+    });
+
+    // Afficher les recettes filtrées
+    displayRecipes(filteredRecipes);
+    // Mettre à jour les options des dropdowns en fonction des recettes filtrées
+    updateDropdownOptions(filteredRecipes);
+}
 
     // Fonction pour extraire les options uniques d'une clé donnée (ingrédients, appareils, ustensiles)
     function extractUniqueOptions(recipesData, key) {
@@ -314,35 +314,35 @@ document.querySelectorAll('.options option').forEach(option => {
 });
 
 
-    // Fonction pour gérer l'ouverture et la fermeture des dropdowns
-    function setupDropdowns(dropdownClass) {
-        const dropbtns = document.querySelectorAll(`.${dropdownClass} .dropbtn`);
-        const filterInputs = document.querySelectorAll(`.${dropdownClass} .filterInput`);
+// Fonction pour gérer l'ouverture et la fermeture des dropdowns
+function setupDropdowns(dropdownClass) {
+    const dropbtns = document.querySelectorAll(`.${dropdownClass} .dropbtn`);
+    const filterInputs = document.querySelectorAll(`.${dropdownClass} .filterInput`);
 
-        dropbtns.forEach(dropbtn => {
-            dropbtn.addEventListener('click', function() {
-                const dropdownContent = this.nextElementSibling;
-                dropdownContent.classList.toggle("show");
+    dropbtns.forEach(dropbtn => {
+        dropbtn.addEventListener('click', function() {
+            const dropdownContent = this.nextElementSibling;
+            dropdownContent.classList.toggle("show");
+        });
+    });
+
+    filterInputs.forEach(input => {
+        input.addEventListener('input', function() {
+            const filter = normalizeString(this.value); // Normaliser la valeur de l'input
+            const dropdownContent = this.parentElement;
+            const items = dropdownContent.querySelectorAll(".options option");
+
+            items.forEach(item => {
+                let txtValue = normalizeString(item.textContent || item.innerText); // Normaliser le texte de l'option
+                if (txtValue.indexOf(filter) > -1) {
+                    item.style.display = "";
+                } else {
+                    item.style.display = "none";
+                }
             });
         });
-
-        filterInputs.forEach(input => {
-            input.addEventListener('input', function() {
-                const filter = this.value.toUpperCase();
-                const dropdownContent = this.parentElement;
-                const items = dropdownContent.querySelectorAll(".options option");
-
-                items.forEach(item => {
-                    let txtValue = item.textContent || item.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        item.style.display = "";
-                    } else {
-                        item.style.display = "none";
-                    }
-                });
-            });
-        });
-    }
+    });
+}
 
     // Gestionnaire d'événements pour la fermeture des dropdowns lorsqu'on clique à l'extérieur
     document.addEventListener('click', function(event) {
