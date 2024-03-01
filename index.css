@@ -333,11 +333,6 @@ line-height: normal;
       cursor: pointer;
   }
   
-  /* Style pour le survol du bouton */
-  .dropbtn:hover, .dropbtn:focus {
-      background-color: #;
-  }
-  
   .filterInput {
       width: 180px;
       justify-content: center;
