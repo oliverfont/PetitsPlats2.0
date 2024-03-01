@@ -310,7 +310,7 @@ line-height: normal;
   /* Style pour la flèche */
   .dropbtn::after {
       content: "";
-      background-image: url('/assets/Vector1.svg');
+      background-image: url('./assets/Vector1.svg');
       background-size: contain;
       background-repeat: no-repeat;
       width: 20px;
