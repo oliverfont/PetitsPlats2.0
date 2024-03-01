@@ -91,50 +91,53 @@ document.addEventListener('DOMContentLoaded', function() {
         filterRecipes(); // Filtrer les recettes par les options sélectionnées
     });
 
-    // Fonction pour filtrer les recettes en fonction des tags sélectionnés et de la recherche principale
-    function filterRecipes() {
-        console.log('Filtrage des recettes en cours.');
-        const selectedTags = [];
-        const selectedOptionTags = document.querySelectorAll('.selected-option');
-        for (let i = 0; i < selectedOptionTags.length; i++) {
-            selectedTags.push(selectedOptionTags[i].textContent.trim().toLowerCase());
-        }
-        const searchTerm = searchInput.value.trim().toLowerCase();
+// Fonction pour normaliser une chaîne de caractères (par exemple, "creme" devient "crème")
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
 
-        // Filtrer les recettes par les options sélectionnées dans les tags et la recherche principale
-        filteredRecipes = [];
-        for (let i = 0; i < recipesData.length; i++) {
-            const recipe = recipesData[i];
-            // Vérifier si la recette correspond à la recherche principale
-            const searchMatch = (
-                recipe.name.toLowerCase().includes(searchTerm) || // Vérifier le nom de la recette
-                recipe.description.toLowerCase().includes(searchTerm) || // Vérifier la description de la recette
-                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(searchTerm)) || // Vérifier les ingrédients
-                recipe.appliance.toLowerCase().includes(searchTerm) || // Vérifier l'appareil
-                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(searchTerm)) // Vérifier les ustensiles
-            );
-
-            // Vérifier si la recette correspond à tous les tags sélectionnés
-            const tagMatch = selectedTags.every(tag =>
-                recipe.name.toLowerCase().includes(tag) ||
-                recipe.description.toLowerCase().includes(tag) ||
-                recipe.ingredients.some(ingredient => ingredient.ingredient.toLowerCase().includes(tag)) ||
-                recipe.appliance.toLowerCase().includes(tag) ||
-                recipe.ustensils.some(ustensil => ustensil.toLowerCase().includes(tag))
-            );
-
-            if (searchMatch && tagMatch) {
-                filteredRecipes.push(recipe);
-            }
-        }
-
-        // Afficher les recettes filtrées
-        console.log('Recettes filtrées :', filteredRecipes);
-        displayRecipes(filteredRecipes);
-        
-        // Mettre à jour les options des dropdowns en fonction des recettes filtrées
-        updateDropdownOptions(filteredRecipes);
+// Fonction pour filtrer les recettes en fonction des tags sélectionnés et de la recherche principale
+function filterRecipes() {
+    const selectedTags = [];
+    const selectedOptionTags = document.querySelectorAll('.selected-option');
+    for (let i = 0; i < selectedOptionTags.length; i++) {
+        selectedTags.push(normalizeString(selectedOptionTags[i].textContent));
     }
+    const searchTerm = normalizeString(searchInput.value);
+
+    // Filtrer les recettes par les options sélectionnées dans les tags et la recherche principale
+    filteredRecipes = [];
+    for (let i = 0; i < recipesData.length; i++) {
+        const recipe = recipesData[i];
+        // Vérifier si la recette correspond à la recherche principale
+        const searchMatch = (
+            normalizeString(recipe.name).includes(searchTerm) || // Vérifier le nom de la recette
+            normalizeString(recipe.description).includes(searchTerm) || // Vérifier la description de la recette
+            recipe.ingredients.some(ingredient => normalizeString(ingredient.ingredient).includes(searchTerm)) || // Vérifier les ingrédients
+            normalizeString(recipe.appliance).includes(searchTerm) || // Vérifier l'appareil
+            recipe.ustensils.some(ustensil => normalizeString(ustensil).includes(searchTerm)) // Vérifier les ustensiles
+        );
+
+        // Vérifier si la recette correspond à tous les tags sélectionnés
+        const tagMatch = selectedTags.every(tag =>
+            normalizeString(recipe.name).includes(tag) ||
+            normalizeString(recipe.description).includes(tag) ||
+            recipe.ingredients.some(ingredient => normalizeString(ingredient.ingredient).includes(tag)) ||
+            normalizeString(recipe.appliance).includes(tag) ||
+            recipe.ustensils.some(ustensil => normalizeString(ustensil).includes(tag))
+        );
+
+        if (searchMatch && tagMatch) {
+            filteredRecipes.push(recipe);
+        }
+    }
+
+    // Afficher les recettes filtrées
+    console.log('Recettes filtrées :', filteredRecipes);
+    displayRecipes(filteredRecipes);
+    // Mettre à jour les options des dropdowns en fonction des recettes filtrées
+    updateDropdownOptions(filteredRecipes);
+}
 
     // Fonction pour extraire les options uniques d'une clé donnée (ingrédients, appareils, ustensiles)
     function extractUniqueOptions(recipesData, key) {
@@ -310,33 +313,36 @@ for (let i = 0; i < options.length; i++) {
     });
 }
 
+// Fonction pour normaliser une chaîne de caractères (par exemple, "creme" devient "crème")
+function normalizeString(str) {
+    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+}
+
 // Fonction pour gérer l'ouverture et la fermeture des dropdowns
 function setupDropdowns(dropdownClass) {
     const dropbtns = document.querySelectorAll(`.${dropdownClass} .dropbtn`);
     const filterInputs = document.querySelectorAll(`.${dropdownClass} .filterInput`);
 
-    // Parcours des dropbtns
+    // Parcourir les dropbtns
     for (let i = 0; i < dropbtns.length; i++) {
-        const dropbtn = dropbtns[i];
-        dropbtn.addEventListener('click', function() {
+        dropbtns[i].addEventListener('click', function() {
             const dropdownContent = this.nextElementSibling;
             dropdownContent.classList.toggle("show");
         });
     }
 
-    // Parcours des filterInputs
+    // Parcourir les filterInputs
     for (let i = 0; i < filterInputs.length; i++) {
-        const input = filterInputs[i];
-        input.addEventListener('input', function() {
-            const filter = this.value.toUpperCase();
+        filterInputs[i].addEventListener('input', function() {
+            const filter = normalizeString(this.value); // Normaliser la valeur de l'input
             const dropdownContent = this.parentElement;
             const items = dropdownContent.querySelectorAll(".options option");
 
-            // Parcours des items
+            // Parcourir les items
             for (let j = 0; j < items.length; j++) {
-                const item = items[j];
-                let txtValue = item.textContent || item.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                let item = items[j];
+                let txtValue = normalizeString(item.textContent || item.innerText); // Normaliser le texte de l'option
+                if (txtValue.indexOf(filter) > -1) {
                     item.style.display = "";
                 } else {
                     item.style.display = "none";
