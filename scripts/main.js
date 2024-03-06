@@ -293,15 +293,6 @@ function isTagAlreadySelected(tagText) {
         });
     });
 
-    // Gestionnaire d'événements pour supprimer un tag
-    function removeTag(tagElement) {
-        const tagText = tagElement.textContent.trim().toLowerCase();
-        tagElement.remove();
-        removeFilter(tagText); // Retirer le filtre associé
-        filterRecipes(); // Filtrer les recettes à nouveau après la suppression du tag
-        updateDropdownOptions(filteredRecipes); // Mettre à jour les options des dropdowns
-    }
-
 // Gestionnaire d'événements pour les options de filtre
 document.querySelectorAll('.options option').forEach(option => {
     option.addEventListener('click', function(event) {
