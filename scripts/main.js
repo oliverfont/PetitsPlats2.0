@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Fonction pour afficher les recettes dans le conteneur
     function displayRecipes(recipes) {
-        recipesContainer.innerHTML = ''; // Vide le conteneur des recettes actuelles
+        recipesContainer.innerHTML = ''; // Vide le conteneur des recettes
         let displayedRecipesCount = 0;
 
         // Parcours de toutes les recettes et création des éléments HTML correspondants
@@ -42,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function() {
             recipesContainer.appendChild(article);
             displayedRecipesCount++;
         });
-                // Si aucune recette n'est affichée, afficher le message approprié
+                // Si aucune recette n'est affichée :
         if (displayedRecipesCount === 0) {
             recipesContainer.innerHTML = `
                 <p>Aucune recette ne contient '${searchInput.value}', vous pouvez chercher 'tarte aux pommes', 'poisson', etc.</p>
@@ -59,22 +59,22 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestionnaire d'événements pour la saisie dans la barre de recherche principale
     searchInput.addEventListener('input', function(event) {
-        console.log('Saisie dans la barre de recherche principale détectée.');
         const searchTerm = event.target.value.trim().toLowerCase();
+        console.log(searchTerm);
 
         if (searchTerm.length >= 3) {
-            console.log('Longueur de la recherche suffisante. Appel de filterRecipes().');
+            console.log('searchTerm.length > 3 => filterRecipes().');
             filterRecipes(); // Appel de la fonction pour filtrer les recettes
         } else {
-            console.log('La longueur de la recherche est inférieure à 3 caractères. Affichage de toutes les recettes.');
+            console.log('searchTerm.length < 3 caractères => affichage de toutes les recettes.');
             displayRecipes(recipesData); // Afficher toutes les recettes si la recherche est trop courte
         }
     });
 
-    // Gestionnaire d'événements pour le formulaire de recherche
+    // Gestionnaire d'événements pour submit du formulaire de recherche
     document.getElementById('search-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêche la soumission du formulaire
-        console.log('Soumission du formulaire de recherche détectée.');
+        console.log('Soumission du formulaire.');
         const searchTerm = searchInput.value.trim(); // Récupère la valeur de l'input
         addTagToSelectedOptions(searchTerm); // Ajoute le terme de recherche comme tag
         searchInput.value = ''; // Efface le contenu de l'input après avoir ajouté le tag
@@ -208,7 +208,7 @@ function filterRecipes() {
         });
     }
 
-    // Fonction pour normaliser une option en convertissant en minuscules et en supprimant les espaces inutiles
+    // Fonction pour normaliser une option en convertissant en minuscules
     function normalizeOption(option) {
         return option.toLowerCase().trim();
     }
@@ -244,7 +244,7 @@ function filterRecipes() {
             tagElement.classList.add('selected-option');
             tagElement.textContent = tagText;
     
-            // Gestionnaire d'événements pour supprimer le tag
+            // Pour supprimer le tag
             tagElement.addEventListener('click', function() {
                 tagElement.remove();
                 removeFilter(tagText);
