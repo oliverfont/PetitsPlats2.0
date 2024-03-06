@@ -313,11 +313,6 @@ for (let i = 0; i < options.length; i++) {
     });
 }
 
-// Fonction pour normaliser une chaîne de caractères (par exemple, "creme" devient "crème")
-function normalizeString(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
-}
-
 // Fonction pour gérer l'ouverture et la fermeture des dropdowns
 function setupDropdowns(dropdownClass) {
     const dropbtns = document.querySelectorAll(`.${dropdownClass} .dropbtn`);
