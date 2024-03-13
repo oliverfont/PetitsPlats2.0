@@ -45,9 +45,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Si aucune recette n'est affichée :
         if (displayedRecipesCount === 0) {
             recipesContainer.innerHTML = `
-                <p>Aucune recette ne contient '${searchInput.value}', vous pouvez chercher 'tarte aux pommes', 'poisson', etc.</p>
-            `;
-            totalRecipesElement.textContent = '0 recette'
+            <p>Aucune recette ne contient '${sanitizeInput(searchInput.value.trim().toLowerCase())}', vous pouvez chercher 'tarte aux pommes', 'poisson', etc.</p>
+        `;
+        totalRecipesElement.textContent = '0 recette'
         } else {
             // Mise à jour du nombre total de recettes affichées
             totalRecipesElement.textContent = displayedRecipesCount + ' recettes';
@@ -59,27 +59,35 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Gestionnaire d'événements pour la saisie dans la barre de recherche principale
     searchInput.addEventListener('input', function(event) {
-        const searchTerm = event.target.value.trim().toLowerCase();
-        console.log(searchTerm);
-
+        console.log('Saisie dans la barre de recherche principale détectée.');
+        const searchTerm = sanitizeInput(event.target.value.trim().toLowerCase());
         if (searchTerm.length >= 3) {
-            console.log('searchTerm.length > 3 => filterRecipes().');
+            console.log('Longueur de la recherche suffisante. Appel de filterRecipes().');
             filterRecipes(); // Appel de la fonction pour filtrer les recettes
         } else {
-            console.log('searchTerm.length < 3 caractères => affichage de toutes les recettes.');
+            console.log('La longueur de la recherche est inférieure à 3 caractères. Affichage de toutes les recettes.');
             displayRecipes(recipesData); // Afficher toutes les recettes si la recherche est trop courte
         }
     });
 
-    // Gestionnaire d'événements pour submit du formulaire de recherche
+    // Gestionnaire d'événements pour le formulaire de recherche
     document.getElementById('search-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêche la soumission du formulaire
-        console.log('Soumission du formulaire.');
-        const searchTerm = searchInput.value.trim(); // Récupère la valeur de l'input
+        console.log('Soumission du formulaire de recherche détectée.');
+        const searchTerm = sanitizeInput(searchInput.value.trim().toLowerCase());
         addTagToSelectedOptions(searchTerm); // Ajoute le terme de recherche comme tag
         searchInput.value = ''; // Efface le contenu de l'input après avoir ajouté le tag
         filterRecipes(); // Filtrer les recettes par les options sélectionnées
     });
+
+// Fonction pour nettoyer la saisie et éviter les injections de scripts ou de balises HTML
+function sanitizeInput(input) {
+    if ((input === null) || (input === '')) {
+        return '';
+    } else {
+        return input.toString().replace(/(<([^>]+)>)/ig, ''); // Supprime les balises HTML
+    }
+}
 
 // Fonction pour normaliser une chaîne de caractères
 function normalizeString(str) {
