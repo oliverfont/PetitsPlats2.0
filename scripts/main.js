@@ -70,8 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Gestionnaire d'événements pour la saisie dans la barre de recherche principale
     searchInput.addEventListener('input', function(event) {
         console.log('Saisie dans la barre de recherche principale détectée.');
-        const searchTerm = event.target.value.trim().toLowerCase();
-
+        const searchTerm = sanitizeInput(event.target.value.trim().toLowerCase());
         if (searchTerm.length >= 3) {
             console.log('Longueur de la recherche suffisante. Appel de filterRecipes().');
             filterRecipes(); // Appel de la fonction pour filtrer les recettes
@@ -85,11 +84,20 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('search-form').addEventListener('submit', function(event) {
         event.preventDefault(); // Empêche la soumission du formulaire
         console.log('Soumission du formulaire de recherche détectée.');
-        const searchTerm = searchInput.value.trim(); // Récupère la valeur de l'input
+        const searchTerm = sanitizeInput(searchInput.value.trim().toLowerCase());
         addTagToSelectedOptions(searchTerm); // Ajoute le terme de recherche comme tag
         searchInput.value = ''; // Efface le contenu de l'input après avoir ajouté le tag
         filterRecipes(); // Filtrer les recettes par les options sélectionnées
     });
+
+// Fonction pour nettoyer la saisie et éviter les injections de scripts ou de balises HTML
+function sanitizeInput(input) {
+    if ((input === null) || (input === '')) {
+        return '';
+    } else {
+        return input.toString().replace(/(<([^>]+)>)/ig, ''); // Supprime les balises HTML
+    }
+}
 
 // Fonction pour normaliser une chaîne de caractères (par exemple, "creme" devient "crème")
 function normalizeString(str) {
