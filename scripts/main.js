@@ -136,15 +136,15 @@ function filterRecipes() {
                     recipe[key].forEach(option => {
                         if (option && typeof option === 'object' && 'ingredient' in option) {
                             const normalizedOption = normalizeOption(option.ingredient);
-                            uniqueOptionsSet.add(normalizedOption); // Ajouter l'ingrédient normalisé à l'ensemble
+                            uniqueOptionsSet.add(normalizedOption); 
                         } else if (option) {
                             const normalizedOption = normalizeOption(option);
-                            uniqueOptionsSet.add(normalizedOption); // Ajouter l'option normalisée directement à l'ensemble
+                            uniqueOptionsSet.add(normalizedOption); 
                         }
                     });
                 } else if (recipe && recipe[key]) {
                     const normalizedOption = normalizeOption(recipe[key]);
-                    uniqueOptionsSet.add(normalizedOption); // Si ce n'est pas un tableau, ajouter directement l'option normalisée à l'ensemble
+                    uniqueOptionsSet.add(normalizedOption); 
                 }
             });
         }
